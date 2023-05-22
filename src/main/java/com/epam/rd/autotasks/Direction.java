@@ -16,13 +16,17 @@ public enum Direction {
     public static Direction ofDegrees(int degrees) {
 
         //throw new UnsupportedOperationException();
+        if(degrees < 0){
+            degrees = 360 + degrees;
+        }
+
         if(degrees > 360){
-            if( (degrees - 360) < 360){
-                degrees -= 360;
-            }else{
-
-            }
-
+                //find how many circles
+                int circles = 360;
+                while (degrees - circles > 361){
+                    circles += 360;
+                }
+                degrees -= circles;
         }
 
         switch (degrees){
@@ -42,6 +46,9 @@ public enum Direction {
             return w;
             case 315: Direction nw = Direction.NW;
             return nw;
+            case 360: Direction n360 = Direction.N;
+            return n360;
+
         }
         return null;
     }
