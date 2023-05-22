@@ -16,17 +16,8 @@ public enum Direction {
     public static Direction ofDegrees(int degrees) {
 
         //throw new UnsupportedOperationException();
-        if(degrees < 0){
-            degrees = 360 + degrees;
-        }
-
-        if(degrees > 360){
-                //find how many circles
-                int circles = 360;
-                while (degrees - circles > 361){
-                    circles += 360;
-                }
-                degrees -= circles;
+        if(degrees < 0 || degrees > 360){
+            degrees = adjustDegrees(degrees);
         }
 
         switch (degrees){
@@ -52,16 +43,81 @@ public enum Direction {
         }
         return null;
     }
+    private static int adjustDegrees(int degrees){
+        if(degrees < 0){
+            degrees = 360 + degrees;
+        }
+
+        if(degrees > 360){
+            //find how many circles
+            int circles = 360;
+            while (degrees - circles > 361){
+                circles += 360;
+            }
+            degrees -= circles;
+        }
+        return degrees;
+    }
 
     public static Direction closestToDegrees(int degrees) {
-        throw new UnsupportedOperationException();
+
+        //throw new UnsupportedOperationException();
+        if(degrees < 0 || degrees > 360){
+            degrees = adjustDegrees(degrees);
+        }
+        if(degrees < 23 || degrees > 337){
+            return Direction.N;
+        }else if(degrees >= 23 && degrees <= 67){
+            return Direction.NE;
+        }else if(degrees > 67 && degrees <= 112){
+            return Direction.E;
+        }else if(degrees >112 && degrees <= 157){
+            return Direction.SE;
+        }else if(degrees >157 && degrees <= 202){
+            return Direction.S;
+        }else if(degrees >202 && degrees <= 247){
+            return Direction.SW;
+        }else if(degrees > 247 && degrees <= 292){
+            return Direction.W;
+        }else if(degrees > 292 && degrees <= 337){
+            return Direction.NW;
+        }
+        return null;
     }
 
     public Direction opposite() {
-        throw new UnsupportedOperationException();
+        //throw new UnsupportedOperationException();
+        if(this.equals(Direction.N)){
+            return Direction.S;
+        }else if(this.equals((Direction.NE))){
+            return Direction.SW;
+        }else if(this.equals((Direction.E))){
+            return Direction.W;
+        }else if(this.equals((Direction.SE))){
+            return Direction.NW;
+        }else if(this.equals((Direction.S))){
+            return Direction.N;
+        }else if(this.equals((Direction.SW))){
+            return Direction.NE;
+        }else if(this.equals((Direction.W))){
+            return Direction.E;
+        }else if(this.equals((Direction.NW))){
+            return Direction.SE;
+        }
+        return null;
     }
 
     public int differenceDegreesTo(Direction direction) {
-        throw new UnsupportedOperationException();
+        //throw new UnsupportedOperationException();
+        if(this.equals(direction)){
+            return 0;
+        }
+        int thisDegrees = this.degrees;
+        int directionDegrees = direction.degrees;
+        int answer = thisDegrees - directionDegrees;
+        if(answer<0){
+            answer *= -1;
+        }
+        return answer;
     }
 }
