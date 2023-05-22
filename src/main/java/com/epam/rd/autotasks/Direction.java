@@ -118,6 +118,8 @@ public enum Direction {
         if(answer<0){
             answer *= -1;
         }
+        if(answer > 180){
+        answer =  360 - answer;}
         return answer;
     }
 }
